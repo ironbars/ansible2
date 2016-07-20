@@ -28,8 +28,8 @@
 
 - name: copy ncmpcpp config files
   copy:
-    src: ncmpcpp/
-    dest: /home/{{ item.username }}/.config/ncmpcpp/
+    src: ncmpcpp
+    dest: /home/{{ item.username }}/.config/ncmpcpp
     owner: "{{ item.username }}"
     group: "{{ item.group }}"
     mode: 0644

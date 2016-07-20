@@ -1,0 +1,9 @@
+[user]
+name = Marc Patton
+email = iron.bars85@gmail.com
+
+[core]
+edtior = vim
+
+[push]
+default = simple

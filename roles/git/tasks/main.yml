@@ -1,2 +1,15 @@
 ---
 # tasks file for git
+- name: install git for version control
+  pacman: name=git state=present
+
+- name: copy .gitconfig file
+  copy:
+    src: gitconfig
+    dest: /home/{{ item.username }}/.gitconfig
+    owner: "{{ item.username }}"
+    group: "{{ item.group }}"
+    mode: 0644
+  with_items:
+    - { username: mpatton, group: users }
+...
