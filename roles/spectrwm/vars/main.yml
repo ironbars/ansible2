@@ -4,6 +4,8 @@ window_mgr_list:
   - spectrwm
   - i3status
   - feh
+  - flattr-icon-theme
+  - numix-frost-themes
   - acpi
   - sysstat
   - rxvt-unicode
