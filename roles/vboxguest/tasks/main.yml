@@ -1,2 +1,19 @@
 ---
 # tasks file for vboxguest
+- name: install Linux headers for DKMS
+  pacman: name=linux-headers state=present
+
+- name: install Virtualbox guest utilities
+  pacman: name=virtualbox-guest-utils state=present
+
+- name: copy modules config file
+  copy:
+    src: virtualbox.conf
+    dest: /etc/modules-load.d/virtualbox.conf
+    owner: root
+    group: root
+    mode: 0644
+
+- name: enable Virtualbox guest service
+  service: name=vboxservice enabled=yes
+...
