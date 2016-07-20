@@ -16,9 +16,9 @@
       tags: ['install_fonts', 'all']
   roles:
     - { role: users, tags: ['users', 'all'] }
+    - { role: vim, tags: ['vim', 'all'] }
     - { role: git, tags: ['git', 'all'] }
     - { role: lightdm, tags: ['lightdm', 'all'] }
-    - { role: vim, tags: ['vim', 'all'] }
     - { role: music, tags: ['music', 'all'] }
 
 - hosts: general
