@@ -1,5 +1,11 @@
 ---
 # Full playbook
+
+# This needs to happen before everything else
+- hosts: all
+  roles:
+    - { role: pacman, tags: ['pacman', 'all'] }
+
 - hosts: all
   tasks:
     - include: includes/install_xorg.yml
@@ -10,10 +16,10 @@
       tags: ['install_fonts', 'all']
   roles:
     - { role: users, tags: ['users', 'all'] }
-    - { role: music, tags: ['music', 'all'] }
-    - { role: lightdm, tags: ['lightdm', 'all'] }
     - { role: git, tags: ['git', 'all'] }
+    - { role: lightdm, tags: ['lightdm', 'all'] }
     - { role: vim, tags: ['vim', 'all'] }
+    - { role: music, tags: ['music', 'all'] }
 
 - hosts: general
 

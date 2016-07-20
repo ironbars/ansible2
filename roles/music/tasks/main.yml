@@ -1,2 +1,38 @@
 ---
 # tasks file for music
+- name: install music utilities
+  pacman: name={{ item }} state=present
+  with_items:
+    - alsa-utils
+    - mpd
+    - beets
+
+- name: install mpc if necessary
+  pacman: name=mpc state=present
+  when: ( system_type == "dev" ) or
+        ( system_type == "hybrid" )
+
+# The variable used here should be included from group_vars
+- name: install mpd client for use
+  pacman: name={{ mpd_client }} state=present
+
+- name: copy mpd config file
+  copy:
+    src: mpd.conf
+    dest: /home/{{ item.username }}/.config/mpd/mpd.conf
+    owner: "{{ item.username }}"
+    group: "{{ item.group }}"
+    mode: 0644
+  with_items:
+    - { username: "mpatton", group: "users" }
+
+- name: copy ncmpcpp config files
+  copy:
+    src: ncmpcpp/
+    dest: /home/{{ item.username }}/.config/ncmpcpp/
+    owner: "{{ item.username }}"
+    group: "{{ item.group }}"
+    mode: 0644
+  with_items:
+    - { username: "mpatton", group: "users" }
+...

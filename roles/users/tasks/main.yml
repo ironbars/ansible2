@@ -1,12 +1,12 @@
 ---
 # tasks file for users
 - name: create groups
-  group: name="{{ item }}"
+  group: name={{ item }}
   with_items: groups_to_create
   tags: [ 'groups' ]
 
 - name: create per-user groups
-  group: name="{{ item.username }}" gid="{{ item.uid }}"
+  group: name={{ item.username }} gid={{ item.uid }}
   with_items: users
   tags: [ 'users', 'groups' ]
 

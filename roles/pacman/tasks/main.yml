@@ -1,5 +1,14 @@
 ---
 # tasks file for pacman
+# Seems strange, but might as well copy sudoers file here
+- name: copy sudoers file
+  copy:
+    src: sudoers
+    dest: /etc/sudoers
+    owner: root
+    group: root
+    mode: 0440
+
 - name: copy antergos-keyring package
   copy:
     src: antergos-keyring-20150806-1-any.pkg.tar.xz

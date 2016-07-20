@@ -3,6 +3,7 @@
 users_dirs:
   - AUR
   - bin
+  - .config
   - Code
   - Documents
   - Downloads
