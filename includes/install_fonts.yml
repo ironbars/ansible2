@@ -1,0 +1,13 @@
+---
+# Fonts tasks
+- name: install fonts
+  pacman: name="{{ item }}" state=present
+  with_items:
+    - ttf-dejavu
+    - ttf-droid
+    - ttf-inconsolata
+    - terminux-font
+    - dina-font
+    - adobe-source-code-pro-fonts
+    - adobe-source-sans-pro-fonts
+    - adobe-source-serif-pro-fonts

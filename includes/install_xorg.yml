@@ -1,0 +1,15 @@
+---
+# Necessary steps to get Xorg working
+- name: install xorg dependencies
+  command: /usr/bin/pacman -S --asdeps mesa-libgl xf86-input-evdev
+
+- name: install xorg packages
+  pacman: name="{{ item }}" state=present
+  with_items:
+    - xorg-server
+    - xorg-server-utils
+    - xorg-xinit
+
+- name: install appropriate video driver
+  pacman: name="{{ graphics_driver }}" state=present
+...

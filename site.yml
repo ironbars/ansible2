@@ -1,0 +1,28 @@
+---
+# Full playbook
+- hosts: all
+  tasks:
+    - include: includes/install_xorg.yml
+      tags: ['install_xorg', 'all']
+    - include: includes/install_admin_tools.yml
+      tags: ['install_admin_tools', 'all']
+    - include: includes/install_fonts.yml
+      tags: ['install_fonts', 'all']
+  roles:
+    - { role: users, tags: ['users', 'all'] }
+    - { role: music, tags: ['music', 'all'] }
+    - { role: lightdm, tags: ['lightdm', 'all'] }
+    - { role: git, tags: ['git', 'all'] }
+    - { role: vim, tags: ['vim', 'all'] }
+
+- hosts: general
+
+- hosts: dev-ops
+
+- hosts: general-purpose
+
+- hosts: general-dev
+
+- hosts: development
+
+...

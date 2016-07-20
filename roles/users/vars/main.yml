@@ -1,0 +1,10 @@
+---
+# vars file for users
+users_dirs:
+  - AUR
+  - bin
+  - Code
+  - Documents
+  - Downloads
+  - make
+  - Music
