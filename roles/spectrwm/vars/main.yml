@@ -1,0 +1,10 @@
+---
+# vars file for spectrwm
+window_mgr_list:
+  - spectrwm
+  - i3status
+  - feh
+  - acpi
+  - sysstat
+  - rxvt-unicode
+...

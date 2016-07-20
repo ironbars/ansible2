@@ -1,0 +1,69 @@
+---
+# tasks file for spectrwm
+- name: install window manager (spectrwm) necessites
+  pacman: name={{ item }} state=present
+  with_items: "{{ window_mgr_list }}"
+
+- name: copy spectrwm config files
+  copy:
+    src: spectrwm.conf
+    dest: /home/{{ item.username }}/.spectrwm.conf
+    owner: "{{ item.username }}"
+    group: "{{ item.group }}"
+  with_items:
+    - { username: mpatton, group: users }
+
+- name: copy i3status config
+  copy:
+    src: i3status
+    dest: /home/{{ item.username }}/.config/
+    owner: "{{ item.username }}"
+    group: "{{ item.group }}"
+  with_items:
+    - { username: mpatton, group: users }
+      
+- name: copy scripts for default actions
+  copy:
+    src: bin/
+    dest: /home/{{ item.username }}/bin/
+    owner: "{{ item.username }}"
+    group: "{{ item.group }}"
+  with_items:
+    - { username: mpatton, group: users }
+
+- name: copy Xresources 
+  copy:
+    src: Xresources-src
+    dest: /home/{{ item.username }}/.Xresources
+    owner: "{{ item.username }}"
+    group: "{{ item.group }}"
+  with_items:
+    - { username: mpatton, group: users }
+
+- name: copy Xresources config files for urxvt and others
+  copy:
+    src: Xresources
+    dest: /home/{{ item.username }}/.config/
+    owner: "{{ item.username }}"
+    group: "{{ item.group }}"
+  with_items:
+    - { username: mpatton, group: users }
+
+- name: copy wallpaper
+  copy:
+    src: digital-rain.png
+    dest: /home/{{ item.username }}/Pictures/digital-rain.png
+    owner: "{{ item.username }}"
+    group: "{{ item.group }}"
+  with_items:
+    - { username: mpatton, group: users }
+
+- name: create symlink for wallpaper
+  file:
+    src: /home/{{ item.username }}/Pictures/digital-rain.png
+    dest: /home/{{ item.username }}/.wallpaper
+    owner: "{{ item.username }}"
+    group: "{{ item.group }}"
+  with_items:
+    - { username: mpatton, group: users }
+...
