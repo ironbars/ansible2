@@ -1,2 +1,33 @@
 ---
 # tasks file for pacman
+- name: copy antergos-keyring package
+  copy:
+    src: antergos-keyring-20150806-1-any.pkg.tar.xz
+    dest: /var/antergos-keyring-20150806-1-any.pkg.tar.xz
+    owner: root
+    group: root
+    mode: 0644
+
+- name: install antergos-keyring package
+  command: /usr/bin/pacman -U /var/antergos-keyring-20150806-1-any.pkg.tar.xz
+
+- name: initialize pacman keyring
+  command: /usr/bin/pacman-key --init archlinux antergos
+
+- name: populate pacman keyring
+  command: /usr/bin/pacman-key --populate archlinux antergos
+
+- name: copy pacman config files
+  copy:
+    src: "{{ item.file }}"
+    dest: "{{ item.dest }}"
+    owner: root
+    group: root
+    mode: 0644
+  with_items:
+      - { file: pacman.conf, dest: /etc/pacman.conf }
+      - { file: antergos-mirrorlist, dest: /etc/pacman.d/antergos-mirrorlist }
+
+- name: refresh databases
+  pacman: update_cache=yes
+...
