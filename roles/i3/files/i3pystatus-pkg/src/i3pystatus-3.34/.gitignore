@@ -1,9 +1,0 @@
-*__pycache__*
-*.pyc
-i3pystatus/__main__.py
-build/*
-dist/*
-*.egg-info/*
-*~
-.i3pystatus-*
-ci-build
