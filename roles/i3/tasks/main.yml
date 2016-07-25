@@ -1,2 +1,70 @@
 ---
 # tasks file for i3
+- name: install the i3 window manager and tools
+  pacman: name={{ item }} state=present
+  with_items:
+    - i3-wm
+    - i3lock
+    - feh
+    - gtk-theme-arc
+    - flattr-icon-theme
+
+- name: copy i3pystatus package and AUR dependencies to target machine
+  copy:
+    src: "{{ item.filename }}"
+    dest: "/home/{{ item.user }}/AUR/"
+    owner: "{{ item.user }}"
+    group: "{{ item.group }}"
+  with_items:
+    - { filename: i3pystatus-pkg, user: mpatton, group: users }
+    - { filename: python-pyalsaaudio, user: mpatton, group: users }
+    - { filename: python-colour, user: mpatton, group: users }
+
+- name: install dependencies for i3pystatus configuration from offical repos
+  command: /usr/bin/pacman -S --asdeps {{ item }}
+  with_items:
+    - python-psutil
+    - python-dbus
+    - python-netifaces
+
+- name: install dependencies for i3pystatus configuration from AUR
+  command: /usr/bin/pacman -U --asdeps {{ item }}
+  with_items:
+    - /home/mpatton/AUR/python-colour-0.1.2-1-x86_64.pkg.tar.xz
+    - /home/mpatton/AUR/python-pyalsaaudio-0.8.2-1-x86_64.pkg.tar.xz
+
+- name: install i3pystatus package
+  command: /usr/bin/pacman -U {{ item }}
+  with_items:
+    - /home/mpatton/AUR/i3pystatus-pkg/i3pystatus-3.34-1-x86_64.pkg.tar.xz
+
+- name: copy config files for i3, i3pystatus, and GTK
+  copy:
+    src: "{{ item.filename }}"
+    dest: "/home/{{ item.user }}/.config/"
+    owner: "{{ item.user }}"
+    group: "{{ item.group }}"
+  with_items:
+    - { filename: i3, user: mpatton, group: users }
+    - { filename: i3pystatus, user: mpatton, group: users }
+    - { filename: gtk-2.0, user: mpatton, group: users }
+    - { filename: gtk-3.0, user: mpatton, group: users }
+
+- name: copy wallpaper
+  copy:
+    src: digital-rain.png
+    dest: /home/{{ item.username }}/Pictures/digital-rain.png
+    owner: "{{ item.username }}"
+    group: "{{ item.group }}"
+  with_items:
+    - { username: mpatton, group: users }
+
+- name: create symlink for wallpaper
+  file:
+    src: /home/{{ item.username }}/Pictures/digital-rain.png
+    dest: /home/{{ item.username }}/.wallpaper
+    owner: "{{ item.username }}"
+    group: "{{ item.group }}"
+  with_items:
+    - { username: mpatton, group: users }
+...
