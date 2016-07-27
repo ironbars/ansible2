@@ -45,14 +45,16 @@
 #  transition-duration = overrides default value
 #
 [greeter]
-background=/etc/lightdm/background/Army-Samurai-Wallpaper-HD.jpg
 {% if system_type == "hybrid" %}
+background=/etc/lightdm/background/Army-Samurai-Wallpaper-HD.jpg
 theme-name=Arc-Darker
 icon-theme-name=Flattr
 {% elif system_type == "gen" %}
+background=/etc/lightdm/background/kuma.jpg
 theme-name=Numix-Frost
 icon-theme-name=Numix-Square
 {% else %}
+#background=
 #theme-name=
 #icon-theme-name=
 {% endif %}
