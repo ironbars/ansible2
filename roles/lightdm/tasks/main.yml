@@ -1,2 +1,38 @@
 ---
 # tasks file for lightdm
+- name: install lightdm components
+  pacman: name={{ item }} state=present
+  with_items:
+    - lightdm
+    - lightdm-gtk-greeter
+
+- name: copy config template 
+  template:
+    src: lightdm.conf.j2
+    dest: /etc/lightdm/lightdm.conf
+    owner: root
+    group: root
+    mode: 0644
+
+- name: copy greeter template
+  template:
+    src: lightdm-gtk-greeter.conf.j2
+    dest: /etc/lightdm/lightdm-gtk-greeter.conf
+    owner: root
+    group: root
+    mode: 0644
+
+- name: copy greeter background images
+  copy:
+    src: background
+    dest: /etc/lightdm/
+    owner: root
+    group: root
+    mode: 0755
+
+- name: enable lightdm greeter
+  service:
+    name: lightdm
+    state: started
+    enabled: yes
+...
