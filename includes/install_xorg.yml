@@ -12,4 +12,5 @@
 
 - name: install appropriate video driver
   pacman: name={{ graphics_driver }} state=present
+  when: 'virtual' not in group_names
 ...
