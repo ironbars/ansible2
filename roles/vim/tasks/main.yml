@@ -1,2 +1,54 @@
 ---
 # tasks file for vim
+- name: install gvim
+  pacman: name=gvim state=present
+
+- name: copy vim config files
+  copy:
+    src: vim
+    dest: /home/{{ item.username }}/.config/
+    owner: "{{ item.username }}"
+    group: "{{ item.group }}"
+  with_items:
+    - { username: mpatton, group: users }
+
+- name: create symlink for vim directory
+  file:
+    src: /home/{{ item.username }}/.config/vim/
+    dest: /home/{{ item.username }}/.vim
+    owner: "{{ item.username }}"
+    group: "{{ item.group }}"
+    state: link
+  with_items:
+    - { username: mpatton, group: users }
+
+- name: create directory for vim plugins
+  file:
+    path: /home/{{ item.username }}/.config/vim/bundle
+    owner: "{{ item.username }}"
+    group: "{{ item.group }}"
+    state: directory
+  with_items:
+    - { username: mpatton, group: users }
+
+- name: copy files for pathogen install
+  copy:
+    src: vim-pathogen
+    dest: /home/{{ item.username }}/AUR/
+    owner: "{{ item.username }}"
+    group: "{{ item.group }}"
+  with_items:
+    - { username: mpatton, group: users }
+
+- name: install pathogen for vim plugins
+  shell: pacman -U /home/{{ item }}/AUR/vim-pathogen-2.3-2-any.pkg.tar.xz
+  with_items:
+    - mpatton
+
+- name: install vim plugins
+  git: repo=https://github.com/{{ item[0].gitroot }}/{{ item[0].gitname }}.git
+       dest=/home/{{ item[1].username }}/.config/vim/bundle/{{ item[0].gitname }}
+  with_nested:
+    - "{{ vim_plugins }}"
+    - "{{ users }}"
+...

@@ -1,2 +1,11 @@
 ---
 # vars file for vim
+vim_plugins:
+  - gitroot: vim-airline
+    gitname: vim-airline
+  - gitroot: scrooloose
+    gitname: nerdcommenter
+  - gitroot: ctrlpvim
+    gitname: ctrlp.vim
+  - gitroot: mileszs
+    gitname: ack.vim

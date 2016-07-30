@@ -5,7 +5,7 @@ ansible_python_interpreter: /usr/bin/python2
 
 users:
   - username: mpatton
-  - name: Marc Patton
-  - group: users
-  - groups: [ 'wheel', 'network', 'video' ]
-  - uid: 1000
+    name: Marc Patton
+    group: users
+    groups: [ 'wheel', 'network', 'video' ]
+    uid: 1000
