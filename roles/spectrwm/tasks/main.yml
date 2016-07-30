@@ -66,4 +66,13 @@
     group: "{{ item.group }}"
   with_items:
     - { username: mpatton, group: users }
+
+- name: copy gtk configs
+  copy:
+    src: gtk-3.0
+    dest: /home/{{ item.username }}/.config/
+    owner: "{{ item.username }}"
+    group: "{{ item.group }}"
+  with_items:
+    - { username: mpatton, group: users }
 ...
