@@ -1,0 +1,22 @@
+---
+# tasks for networkmanager role
+- name: install NetworkManager
+  pacman: name=networkmanager state=present
+
+- name: install NetworkManager applet
+  pacman: name=network-manager-applet state=present
+  when: ( system_type == "gen" ) or
+        ( system_type == "hybrid" )
+
+- name: disable any existing networking service
+  service:
+    name: dhcpcd
+    enabled: no
+    state: stopped
+
+- name: enable NetworkManager
+  service:
+    name: NetworkManager
+    enabled: yes
+    state: started
+...

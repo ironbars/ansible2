@@ -5,6 +5,9 @@
 - hosts: all
   roles:
     - { role: pacman, tags: ['pacman', 'all'] }
+  tasks:
+    - include: includes/network_setup.yml
+      tags: ['network', 'all']
 
 - hosts: all
   tasks:
