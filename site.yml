@@ -27,11 +27,22 @@
 - hosts: general
 
 - hosts: dev-ops
+  roles:
+    - { role: dunst, tags: ['dunst', 'dev-ops'] }
 
 - hosts: general-purpose
+  roles:
+    - { role: openbox, tags: ['openbox', 'general-purpose'] }
 
 - hosts: general-dev
+  roles:
+    - { role: i3, tags: ['i3', 'general-dev'] }
 
 - hosts: development
+  roles:
+    - { role: spectrwm, tags: ['spectrwm', 'development'] }
 
+- hosts: virtual
+  roles:
+    - { role: vboxguest, tags: ['vboxguest', 'virtual'] }
 ...
