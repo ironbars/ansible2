@@ -18,7 +18,7 @@
     mode: 0644
 
 - name: install antergos-keyring package
-  command: /usr/bin/pacman -U /var/antergos-keyring-20150806-1-any.pkg.tar.xz
+  command: /usr/bin/pacman --noconfirm -U /var/antergos-keyring-20150806-1-any.pkg.tar.xz
 
 - name: initialize pacman keyring
   command: /usr/bin/pacman-key --init archlinux antergos
