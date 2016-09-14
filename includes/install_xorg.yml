@@ -1,7 +1,7 @@
 ---
 # Necessary steps to get Xorg working
 - name: install xorg dependencies
-  command: /usr/bin/pacman -S --asdeps mesa-libgl xf86-input-evdev
+  command: /usr/bin/pacman -S --asdeps --noconfirm mesa-libgl xf86-input-evdev
 
 - name: install xorg packages
   pacman: name={{ item }} state=present
@@ -12,5 +12,5 @@
 
 - name: install appropriate video driver
   pacman: name={{ graphics_driver }} state=present
-  when: 'virtual' not in group_names
+  when: "'virtual' not in group_names"
 ...
