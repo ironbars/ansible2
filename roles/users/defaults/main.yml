@@ -1,7 +1,7 @@
 ---
 # defaults file for users
 # Create a group for every user and make that their primary group
-users_create_users_per_group: false
+users_create_per_user_group: false
 # If not creating per user groups, set default group for all users
 users_group: users
 users_default_shell: /bin/bash
