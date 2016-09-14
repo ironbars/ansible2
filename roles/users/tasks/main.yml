@@ -49,7 +49,7 @@
   tags: [ 'users' ]
 
 - name: set default password
-  shell: echo "{{ item.username }}":default | chpasswd
+  shell: 'echo "{{ item.username }}":default | chpasswd'
   with_items:
     - users
 
