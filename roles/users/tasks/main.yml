@@ -49,12 +49,10 @@
   tags: [ 'users' ]
 
 - name: set default password
-  shell: 'echo "{{ item.username }}":default | chpasswd'
-  with_items:
-    - users
+  shell: echo "{{ item.username }}":default | chpasswd
+  with_items: users
 
 - name: enforce password change next login
   command: /usr/bin/chage -d 0 "{{ item.username }}"
-  with_items:
-    - users
+  with_items: users
 ...
