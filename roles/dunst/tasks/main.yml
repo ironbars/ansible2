@@ -1,2 +1,37 @@
 ---
 # tasks file for dunst
+- name: install dunst
+  pacman: name=dunst state=present
+
+- name: create dunst config directory
+  file:
+    path: /home/{{ item.username }}/.config/dunst
+    state: directory
+    owner: "{{ item.username }}"
+    group: "{{ item.group }}"
+    mode: 0755
+  with_items:
+    - { username: mpatton, group: users }
+
+- name: copy dunst config files for i3
+  copy:
+    src: dunstrc.i3
+    dest: /home/{{ item.username }}/.config/dunst/dunstrc
+    owner: "{{ item.username }}"
+    group: "{{ item.group }}"
+    mode: 0644
+  with_items:
+    - { username: mpatton, group: users }
+  when: system_type == "hybrid"
+
+- name: copy dunst config files for spectrwm
+  copy:
+    src: dunstrc.spectrwm
+    dest: /home/{{ item.username }}/.config/dunst/dunstrc
+    owner: "{{ item.username }}"
+    group: "{{ item.group }}"
+    mode: 0644
+  with_items:
+    - { username: mpatton, group: users }
+  when: system_type == "dev"
+...
