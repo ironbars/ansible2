@@ -21,20 +21,20 @@
     - { filename: python-colour, user: mpatton, group: users }
 
 - name: install dependencies for i3pystatus configuration from offical repos
-  command: /usr/bin/pacman -S --asdeps {{ item }}
+  command: /usr/bin/pacman --noconfirm -S --asdeps {{ item }}
   with_items:
     - python-psutil
     - python-dbus
     - python-netifaces
 
 - name: install dependencies for i3pystatus configuration from AUR
-  command: /usr/bin/pacman -U --asdeps {{ item }}
+  command: /usr/bin/pacman --noconfirm -U --asdeps {{ item }}
   with_items:
-    - /home/mpatton/AUR/python-colour-0.1.2-1-x86_64.pkg.tar.xz
-    - /home/mpatton/AUR/python-pyalsaaudio-0.8.2-1-x86_64.pkg.tar.xz
+    - /home/mpatton/AUR/python-colour/python-colour-0.1.2-1-x86_64.pkg.tar.xz
+    - /home/mpatton/AUR/python-pyalsaaudio/python-pyalsaaudio-0.8.2-1-x86_64.pkg.tar.xz
 
 - name: install i3pystatus package
-  command: /usr/bin/pacman -U {{ item }}
+  command: /usr/bin/pacman --noconfirm -U {{ item }}
   with_items:
     - /home/mpatton/AUR/i3pystatus-pkg/i3pystatus-3.34-1-x86_64.pkg.tar.xz
 
@@ -63,6 +63,7 @@
   file:
     src: /home/{{ item.username }}/Pictures/digital-rain.png
     dest: /home/{{ item.username }}/.wallpaper
+    state: link
     owner: "{{ item.username }}"
     group: "{{ item.group }}"
   with_items:

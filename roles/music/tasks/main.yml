@@ -16,6 +16,16 @@
 - name: install mpd client for use
   pacman: name={{ mpd_client }} state=present
 
+- name: create mpd config directory
+  file:
+    path: /home/{{ item.username }}/.config/mpd
+    state: directory
+    owner: "{{ item.username }}"
+    group: "{{ item.group }}"
+    mode: 0644
+  with_items:
+    - { username: "mpatton", group: "users" }
+
 - name: copy mpd config file
   copy:
     src: mpd.conf
