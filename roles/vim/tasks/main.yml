@@ -41,7 +41,7 @@
     - { username: mpatton, group: users }
 
 - name: install pathogen for vim plugins
-  shell: pacman -U /home/{{ item }}/AUR/vim-pathogen-2.3-2-any.pkg.tar.xz
+  shell: pacman --noconfirm -U /home/{{ item }}/AUR/vim-pathogen/vim-pathogen-2.3-2-any.pkg.tar.xz
   with_items:
     - mpatton
 
