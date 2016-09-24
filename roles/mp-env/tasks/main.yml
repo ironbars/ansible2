@@ -1,0 +1,92 @@
+---
+# Tasks file for mp-env role
+- name: install lxterminal if necessary
+  pacman:
+    name: lxterminal
+    state: present
+  when: ( system_type == "hybrid" ) or
+        ( system_type == "gen" )
+
+- name: create directory for lxterminal
+  file:
+    path: /home/{{ item.username }}/.config/lxterminal
+    state: directory
+    owner: "{{ item.username }}"
+    group: "{{ item.group }}"
+    mode: 0755
+  when: ( system_type == "hybrid" ) or
+        ( system_type == "gen" )
+  with_items: "{{ users }}"
+
+- name: copy lxterminal config files
+  template:
+    src: lxterminal.conf.j2
+    dest: /home/{{ item.username }}/.config/lxterminal/lxterminal.conf
+    owner: "{{ item.username }}"
+    group: "{{ item.group }}"
+    mode: 0600
+  when: ( system_type == "hybrid" ) or
+        ( system_type == "gen" )
+  with_items: "{{ users }}"
+
+- name: install compton
+  pacman:
+    name: compton
+    state: present
+  when: ( system_type == "hybrid" ) or
+        ( system_type == "gen" )
+
+- name: copy compton configs
+  copy:
+    src: compton.conf
+    dest: /home/{{ item.username }}/.config/compton.conf
+    owner: "{{ item.username }}"
+    group: "{{ item.group }}"
+    mode: 0644
+  when: ( system_type == "gen" )
+  with_items: "{{ users }}"
+
+- name: install urxvt if necessary
+  pacman:
+    name: rxvt-unicode
+    state: present
+  when: ( system_type == "dev" )
+
+- name: create Xresources directory
+  file:
+    path: /home/{{ item.username }}/.config/Xresources
+    state: directory
+    owner: "{{ item.username }}"
+    group: "{{ item.group }}"
+    mode: 0755
+  when: ( system_type == "dev" ) or
+        ( system_type == "hybrid" )
+  with_items: "{{ users }}"
+
+- name: install rofi if necessary
+  pacman:
+    name: rofi
+    state: present
+  when: ( system_type == "dev" ) or
+        ( system_type == "hybrid" )
+
+- name: copy configs for rofi
+  template:
+    src: rofi.j2
+    dest: /home/{{ item.username }}/.config/Xresources/rofi
+    owner: "{{ item.username }}"
+    group: "{{ item.group }}"
+    mode: 0644
+  when: ( system_type == "dev" ) or
+        ( system_type == "hybrid" )
+  with_items: "{{ users }}"
+
+- name: copy config for urxvt
+  copy:
+    src: rxvt-unicode
+    dest: /home/{{ item.username }}/.config/Xresources/rxvt-unicode
+    owner: "{{ item.username }}"
+    group: "{{ item.group }}"
+    mode: 0644
+  when: ( system_type == "dev" )
+...
