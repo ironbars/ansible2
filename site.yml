@@ -23,6 +23,7 @@
     - { role: lightdm, tags: ['lightdm', 'all'] }
     - { role: vim, tags: ['vim', 'all'] }
     - { role: music, tags: ['music', 'all'] }
+    - { role: mp-env, tags: ['mp-env', 'all'] }
 
 - hosts: general
 
