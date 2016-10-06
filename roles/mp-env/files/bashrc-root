@@ -1,0 +1,8 @@
+# If not running interactively, dont do anything
+[[ $- != *i* ]] && return
+
+alias ls='ls --group-directories-first --time-style=long-iso --color=auto -F'
+alias ll='ls -lh --group-directories-first --time-style=long-iso --color=auto -F'
+alias la='ls -a --group-directories-first --time-style=long-iso -F'
+
+PS1='\[\e[1;31m\][\u@\h \W]#\[\e[0m\] '

@@ -63,6 +63,17 @@
         ( system_type == "hybrid" )
   with_items: "{{ users }}"
 
+- name: copy dummy Xresources
+  copy:
+    src: Xresources
+    dest: /home/{{ item.username }}/.Xresources
+    owner: "{{ item.username }}"
+    group: "{{ item.group }}"
+    mode: 0644
+  when: ( system_type == "dev" ) or
+        ( system_type == "hybrid" )
+  with_items: "{{ users }}"
+
 - name: install rofi if necessary
   pacman:
     name: rofi
@@ -88,5 +99,62 @@
     owner: "{{ item.username }}"
     group: "{{ item.group }}"
     mode: 0644
+  when: ( system_type == "dev" )
+
+- name: create directory for bash configs
+  file:
+    path: /home/{{ item.username }}/.config/bash
+    state: directory
+    owner: "{{ item.username }}"
+    group: "{{ item.group }}"
+    mode: 0755
+  with_items: "{{ users }}"
+
+- name: copy dummy bashrc
+  copy:
+    src: bashrc
+    dest: /home/{{ item.username }}/.bashrc
+    owner: "{{ item.username }}"
+    group: "{{ item.group }}"
+    mode: 0644
+  with_items: "{{ users }}"
+
+- name: copy actual bashrc
+  template:
+    src: bashrc-real.j2
+    dest: /home/{{ item.username }}/.config/bash/bashrc-real
+    owner: "{{ item.username }}"
+    group: "{{ item.group }}"
+    mode: 0644
+  with_items: "{{ users }}"
+
+- name: copy inputrc
+  copy:
+    src: inputrc
+    dest: /home/{{ item.username }}/.config/bash/inputrc
+    owner: "{{ item.username }}"
+    group: "{{ item.group }}"
+    mode: 0644
+  with_items: "{{ users }}"
+
+- name: copy root bashrc
+  copy:
+    src: bashrc-root
+    dest: /root/.bashrc
+    owner: root
+    group: root
+    mode: 0644
+
+- name: install archey3
+  pacman:
+    name: archey3
+    state: present
+  when: ( system_type == "gen" ) or
+        ( system_type == "hybrid" )
+
+- name: install screenfetch
+  pacman:
+    name: screenfetch
+    state: present
   when: ( system_type == "dev" )
 ...
