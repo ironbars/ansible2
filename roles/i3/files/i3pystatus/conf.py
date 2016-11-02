@@ -16,7 +16,7 @@ status.register("battery",
         })
 
 status.register("network",
-        interface="enp0s3",
+        interface="wlp6s0",
         format_up="{v4cidr}")
 
 status.register("disk",
